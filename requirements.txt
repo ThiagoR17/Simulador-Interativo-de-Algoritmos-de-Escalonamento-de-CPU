@@ -1,0 +1,6 @@
+# requirements.txt
+Flask
+Flask-SocketIO
+python-engineio
+python-socketio
+simple-websocket
