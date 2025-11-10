@@ -260,7 +260,7 @@ def sjf_preemptive_scheduler(processes: list[Process]) -> Generator[dict[str, An
 
 def multi_level_queue_scheduler(processes: list[Process]) -> Generator[dict[str, Any], Any, None]:
     processes.sort(key=lambda p: p.arrival_time)
-    ready_queues = [collections.deque() for _ in range(3)] 
+    ready_queues = [collections.deque() for _ in range(2)]
     completed = []
     time, p_idx, current_p = 0, 0, None
 

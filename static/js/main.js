@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <td><input type="number" class="form-control form-control-sm arrival" value="0" min="0"></td>
       <td><input type="number" class="form-control form-control-sm burst" value="1" min="1"></td>
       <td class="priority-col" style="display: none;">
-        <input type="number" class="form-control form-control-sm priority" value="0" min="0" max="2">
+        <input type="number" class="form-control form-control-sm priority" value="0" min="1" max="2">
       </td>
       <td><button class="btn btn-sm btn-danger remove-process">Remover</button></td>
     `;
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   function resetSimulationOutput() {
-    timeline.textContent = '0';
+    //timeline.textContent = '0';
     cpuBox.textContent = 'Idle';
     cpuBox.classList.remove('cpu');
     queuesArea.innerHTML = '';
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!newRow) return;
     const randomArrival = Math.floor(Math.random() * 21);
     const randomBurst = Math.floor(Math.random() * 10) + 1;
-    const randomPriority = Math.floor(Math.random() * 3);
+    const randomPriority = Math.floor(Math.random() * 2);
     newRow.querySelector('.arrival').value = randomArrival;
     newRow.querySelector('.burst').value = randomBurst;
     newRow.querySelector('.priority').value = randomPriority;
@@ -289,7 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       const priorityInput = row.querySelector('.priority');
       if (priorityInput && window.getComputedStyle(priorityInput.parentElement).display !== 'none') {
-        processData.priority = parseInt(priorityInput.value, 10) || 0;
+        const userPriority = parseInt(priorityInput.value, 10) || 1;
+        processData.priority = userPriority - 1
       }
       processes.push(processData);
     });
@@ -311,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentCpuPid = (data.cpu && data.cpu.pid) ? data.cpu.pid : 'Idle';
     cpuHistory.push(currentCpuPid);
 
-    timeline.textContent = data.time;
+    //timeline.textContent = data.time;
     cpuBox.innerHTML = '';
     if (data.cpu && data.cpu !== 'Idle') {
       const pill = createProcessPill(data.cpu, 'cpu');
@@ -324,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
       data.ready_queues.forEach((queue, index) => {
         const col = document.createElement('div');
         col.className = 'col';
-        col.innerHTML = `<h6>Fila Prioridade ${index}</h6>`;
+        col.innerHTML = `<h6>Fila Prioridade ${index + 1}</h6>`;
         const queueBox = document.createElement('div');
         queueBox.className = 'process-box queue';
         queue.forEach(p => queueBox.appendChild(createProcessPill(p, 'queue')));
