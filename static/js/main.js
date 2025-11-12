@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let cpuHistory = [];
   let processMeta = new Map();
 
-  // --- Seletores de Elementos (sem alteração) ---
+  // --- Seletores de Elementos
   const addProcessBtn = document.getElementById('add-process');
   const addRandomBtn = document.getElementById('add-random-process');
   const clearBtn = document.getElementById('clear-simulation');
@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   function resetSimulationOutput() {
-    //timeline.textContent = '0';
     cpuBox.textContent = 'Idle';
     cpuBox.classList.remove('cpu');
     queuesArea.innerHTML = '';
@@ -110,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     processList.innerHTML = '';
   }
 
-  // Função do Diagrama de Gantt (sem alteração)
+  // Função do Diagrama de Gantt
   function renderGanttChart(history, mode = 'single') {
     const timelineEl = document.getElementById('gantt-timeline');
     const chartEl = document.getElementById('gantt-chart');
@@ -121,11 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelColPx = 110;
 
     const PID_PALETTE = {
-    P1: { bg: '#1f77b4', border: '#165a88', fg: '#ffffff' }, // azul
-    P2: { bg: '#ff7f0e', border: '#cc650b', fg: '#000000' }, // laranja
-    P3: { bg: '#2ca02c', border: '#1f7a1f', fg: '#ffffff' }, // verde
-    P4: { bg: '#d62728', border: '#a51f20', fg: '#ffffff' }, // vermelho
-    P5: { bg: '#9467bd', border: '#6f4e8f', fg: '#ffffff' }, // roxo
+    P1: { bg: '#1f77b4', border: '#165a88', fg: '#ffffff' }, 
+    P2: { bg: '#ff7f0e', border: '#cc650b', fg: '#000000' }, 
+    P3: { bg: '#2ca02c', border: '#1f7a1f', fg: '#ffffff' }, 
+    P4: { bg: '#d62728', border: '#a51f20', fg: '#ffffff' }, 
+    P5: { bg: '#9467bd', border: '#6f4e8f', fg: '#ffffff' }, 
     };
 
     // --- Helpers ---
@@ -150,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let start = 0;
     for (let i = 1; i <= N; i++) {
       if (i === N || history[i] !== history[i - 1]) {
-        segments.push({ pid: history[i - 1], start, end: i }); // [start,end)
+        segments.push({ pid: history[i - 1], start, end: i }); 
         start = i;
       }
     }
@@ -168,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     timelineEl.appendChild(mk('gantt-head', 'Tempo'));
     for (let t = 0; t < N; t++) timelineEl.appendChild(mk('gantt-time', String(t)));
 
-    // MODO 1: LINHA ÚNICA (estilo da sua imagem)
+    
     if (mode === 'single') {
       chartEl.style.display = 'grid';
       chartEl.style.gridTemplateColumns = `${labelColPx}px repeat(${N}, ${colWidth}px)`;
@@ -187,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.style.border = `1px ${c.dashed ? 'dashed' : 'solid'} ${c.border}`;
         cell.style.color = c.fg;
 
-        // tooltip rico: tenta buscar info do processo
+        
         const meta = processMeta.get(pid);
         cell.title = (pid === 'Idle') ?
           `Idle (t=${i})` :
@@ -203,13 +202,13 @@ document.addEventListener('DOMContentLoaded', () => {
     chartEl.style.flexDirection = 'column';
     chartEl.style.gap = '8px';
 
-    // ordem dos PIDs (Idle por último)
+   
     const pids = [...new Set(segments.map(s => s.pid))];
     const idleIdx = pids.indexOf('Idle');
     if (idleIdx !== -1) { pids.splice(idleIdx, 1); pids.push('Idle'); }
 
     pids.forEach(pid => {
-      // linha (label + faixa)
+      
       const row = document.createElement('div');
       row.className = 'gantt-row';
       row.style.display = 'grid';
@@ -225,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
       track.style.height = '28px';
       row.appendChild(track);
 
-      // barras dos segmentos desse PID
+     
       segments.filter(s => s.pid === pid).forEach(s => {
         const bar = mk('gantt-bar', pid === 'Idle' ? '' : String(pid));
         const c = colorForPid(pid);
@@ -233,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bar.style.border = `1px ${c.dashed ? 'dashed' : 'solid'} ${c.border}`;
         bar.style.color = c.fg;
 
-        const widthPx = (s.end - s.start) * (colWidth + 2) - 2; // -2 pra compensar gap/borda
+        const widthPx = (s.end - s.start) * (colWidth + 2) - 2;
         const leftPx = s.start * (colWidth + 2);
 
         bar.style.position = 'absolute';
@@ -254,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
       chartEl.appendChild(row);
     });
   }
-  // --- Event Listeners ---
+  
   addProcessBtn.addEventListener('click', addProcessRow);
 
 
@@ -270,13 +269,12 @@ document.addEventListener('DOMContentLoaded', () => {
     newRow.querySelector('.priority').value = randomPriority;
   });
 
-  // O EventListener do "Limpar" agora está aqui, no lugar correto.
   clearBtn.addEventListener('click', clearAllData);
 
   algorithmSelect.addEventListener('change', toggleAlgorithmFields);
 
   startBtn.addEventListener('click', () => {
-    cpuHistory = []; // Zera o histórico do Gantt
+    cpuHistory = [];
     const processes = [];
     processMeta.clear();
     

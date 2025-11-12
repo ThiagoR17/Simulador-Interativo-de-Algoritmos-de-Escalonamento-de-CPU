@@ -17,10 +17,10 @@ def handle_simulation(data):
     processes_data = data['processes']
     algorithm = data['algorithm']
     
-    # Adicionamos a leitura dos novos parâmetros
-    quantum = data.get('quantum', 0) # Pega o quantum, default 0
+   
+    quantum = data.get('quantum', 0) 
     
-    # Criamos os processos, agora passando a prioridade
+    
     processes = [Process(p['pid'], p['arrival'], p['burst'], p.get('priority', 0)) for p in processes_data]
     
     scheduler_generator = None
@@ -32,7 +32,7 @@ def handle_simulation(data):
         scheduler_generator = rr_scheduler(processes, int(quantum))
     elif algorithm == 'multi_level':
         scheduler_generator = multi_level_queue_scheduler(processes)
-    # ===================================
+    
 
     if scheduler_generator:
         for state in scheduler_generator:

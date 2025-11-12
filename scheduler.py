@@ -2,9 +2,7 @@ import collections
 import heapq
 from typing import Any, Generator, Deque, List, Optional, Tuple
 
-# =====================================================================
-# CLASSE DE PROCESSO (Inalterada)
-# =====================================================================
+
 class Process:
     def __init__(self, pid: str, arrival_time: int, burst_time: int, priority: int = 0):
         self.pid = pid
@@ -124,7 +122,6 @@ def _select_new_process_from_multi_queue(p: Process | None, queues: list[collect
 # FUNÇÕES PRINCIPAIS DO SCHEDULER (COM ALTERAÇÕES)
 # =====================================================================
 
-# scheduler.py (OTIMIZADO - EVENT-DRIVEN)
 def fcfs_scheduler_optimized(processes: list["Process"]) -> Generator[dict[str, Any], Any, None]:
    
     processes.sort(key=lambda p: p.arrival_time)
@@ -170,7 +167,7 @@ def fcfs_scheduler_optimized(processes: list["Process"]) -> Generator[dict[str, 
                     time = next_arrival
                     continue
                 else:
-                    # Nada a executar e ninguém mais chegará
+                  
                     break
 
         # 3) Se há processo rodando (FCFS = não-preemptivo), roda até terminar
@@ -218,7 +215,6 @@ def rr_scheduler(processes: list[Process], quantum: int) -> Generator[dict[str, 
                 current_p.start_time = time
             time_slice = 0
 
-        # ALTERADO: Envia o objeto completo (vars(p)) em vez de apenas p.pid
         yield {
             'time': time, 
             'cpu': vars(current_p) if current_p else 'Idle', 
