@@ -145,7 +145,7 @@ def fcfs_scheduler_optimized(processes: list["Process"]) -> Generator[dict[str, 
                 if current_p.start_time == -1:
                     current_p.start_time = time
 
-                # Evento de INÍCIO
+               
                 yield {
                     'time': time,
                     'cpu': vars(current_p),
@@ -154,10 +154,9 @@ def fcfs_scheduler_optimized(processes: list["Process"]) -> Generator[dict[str, 
                 }
 
             else:
-                # Fila vazia. Se ainda há processos que chegarão no futuro, pula para a próxima chegada
+
                 if p_idx < n:
                     next_arrival = processes[p_idx].arrival_time
-                    # Evento de OCIOSIDADE
                     yield {
                         'time': time,
                         'cpu': 'Idle',
