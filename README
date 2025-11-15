@@ -2,6 +2,7 @@
 
 Durante o desenvolvimento do simulador de escalonamento de processos, meu principal objetivo foi criar uma aplicação voltada para o estudo acadêmico de Sistemas Operacionais. A proposta é transformar conceitos teóricos em uma experiência visual e dinâmica, facilitando a compreensão dos alunos por meio da simulação prática.
 O simulador implementa os seguintes algoritmos de escalonamento:
+
 - FCFS (First Come, First Served): O primeiro processo a chegar é o primeiro a ser executado.
 
 - SJF (Shortest Job First): O processo com menor tempo de execução é priorizado.
