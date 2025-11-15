@@ -1,0 +1,12 @@
+                              Objetivo e descrição do projeto
+
+Durante o desenvolvimento do simulador de escalonamento de processos, meu principal objetivo foi criar uma aplicação voltada para o estudo acadêmico de Sistemas Operacionais. A proposta é transformar conceitos teóricos em uma experiência visual e dinâmica, facilitando a compreensão dos alunos por meio da simulação prática.
+O simulador implementa os seguintes algoritmos de escalonamento:
+- FCFS (First Come, First Served): O primeiro processo a chegar é o primeiro a ser executado.
+
+- SJF (Shortest Job First): O processo com menor tempo de execução é priorizado.
+
+- Round Robin: Compartilhamento de tempo entre os processos, com alternância periódica.
+
+- Multiplas Filas com Prioridade Preemptiva: Os processos são organizados em filas com diferentes níveis de prioridade, podendo ser interrompidos por processos mais prioritários.
+Essa ferramenta busca aproximar os estudantes da lógica de funcionamento dos sistemas operacionais, tornando o aprendizado mais interativo e intuitivo.
